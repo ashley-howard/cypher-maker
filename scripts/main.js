@@ -16,10 +16,16 @@ if (window.location.href.indexOf('5fdsse35tg') > 0) {
 }
 
 for (var i = 0; i < 36; i++) {
-    // var letter = String.fromCharCode(97 + i);      
+    var letter = String.fromCharCode(97 + i);      
 
     var label = document.createElement("label")
-    label.innerHTML = i;
+    if(i<26){        
+        label.innerHTML = letter;
+    }
+    else {
+        label.innerHTML = i-26;
+    }
+  
 
     var input = document.createElement("input");
     input.setAttribute("type", "text");
