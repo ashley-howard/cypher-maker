@@ -34,9 +34,9 @@ function category(type) {
                 var charPos = document.getElementById('char-' + i);
 
                 if (type == 'colours') {
-                    charPos.value = data[i].name
+                    charPos.value = data[i].name.toLowerCase();
                 } else {
-                    charPos.value = data[i];
+                    charPos.value = data[i].toLowerCase();;
                 }
             }
         })
@@ -156,9 +156,7 @@ function decrypt() {
 }
 
 
-//NOTES
-// problem with spaces 
-// problem with letter A?? or not 
+
 
 function getAllUrlParams(url) {
 
@@ -229,8 +227,22 @@ function getAllUrlParams(url) {
 // follow url with ?msg= then type message, using + for spaces
 // console.log(getAllUrlParams().msg)
 
-if (getAllUrlParams().msg){
+if (getAllUrlParams().msg) {
     // dont bother putting it in the decrypt input, just convert subito
-    console.log('there is a msg to be translated')
-    decryptInput.value = getAllUrlParams().msg;
+    console.log("there's a msg in the URL")
+    decryptInput.value = getAllUrlParams().msg.replace(/%20/g, " ");
+
+    decrypt()
+}
+
+
+// create URL-friendly link and copies to clipboard
+function share() {
+    // this is the opposite
+    // 'olive%20grey39%20orange1'.replace(/%20/g, " ")
+    console.log('http://127.0.0.1:5500/?msg=' + decryptInput.value.replace(/\s/g, '%20'))
+}
+
+if (getAllUrlParams().code) {
+    console.log("there's a code in the URL") // ?code=
 }
