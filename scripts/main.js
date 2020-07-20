@@ -23,7 +23,7 @@ for (var i = 0; i < 36; i++) {
 
     var input = document.createElement("input");
     input.setAttribute("type", "text");
-    input.setAttribute("id", i);
+    input.setAttribute("id", 'char-' + i);
 
     inputs.appendChild(label);
     inputs.appendChild(input);
@@ -31,13 +31,25 @@ for (var i = 0; i < 36; i++) {
 }
 
 function submit() {
-
-    // var code = []
-
+    if (localStorage.getItem('code')) {
+        code = [];
+    }
     for (var i = 0; i < 36; i++) {
-        code.push(document.getElementById([i]).value);
+        code.push(document.getElementById('char-' + i).value);
     }
 
     console.log(code)
     localStorage.setItem('code', JSON.stringify(code));
+}
+
+function reset() {
+    localStorage.clear()
+}
+
+// if code is written in local storage, retrieve it and fill in inputs.
+
+if (localStorage.getItem('code')) {
+    for (var i = 0; i < 36; i++) {
+        document.getElementById('char-' + i).value = JSON.parse(localStorage.getItem('code'))[i];
+    }
 }
