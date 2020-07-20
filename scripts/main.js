@@ -228,21 +228,40 @@ function getAllUrlParams(url) {
 // console.log(getAllUrlParams().msg)
 
 if (getAllUrlParams().msg) {
-    // dont bother putting it in the decrypt input, just convert subito
-    console.log("there's a msg in the URL")
-    decryptInput.value = getAllUrlParams().msg.replace(/%20/g, " ");
 
-    decrypt()
-}
+    if (localStorage.getItem('code')) {
+        // dont bother putting it in the decrypt input, just convert subito
+        console.log("there's a msg in the URL")
+        decryptInput.value = getAllUrlParams().msg.replace(/%20/g, " ");
 
+        decrypt()
+    }
 
-// create URL-friendly link and copies to clipboard
-function share() {
-    // this is the opposite
-    // 'olive%20grey39%20orange1'.replace(/%20/g, " ")
-    console.log('http://127.0.0.1:5500/?msg=' + decryptInput.value.replace(/\s/g, '%20'))
+    // instead match the same amount of words as the url 
+    else {
+        encryptInput.value = 'in the end nothing really matters';
+        decryptInput.value = getAllUrlParams().msg;
+    }
 }
 
 if (getAllUrlParams().code) {
     console.log("there's a code in the URL") // ?code=
+    code = getAllUrlParams().code.replace(/%20/g, " ").split(" ")
+    localStorage.setItem('code', JSON.stringify(code));
 }
+
+
+// create URL-friendly link and copies to clipboard
+function share(type) {
+    if (type == 'msg') {
+        // this is the opposite
+        // 'olive%20grey39%20orange1'.replace(/%20/g, " ")
+        console.log('http://127.0.0.1:5500/?msg=' + decryptInput.value.replace(/\s/g, '%20'))
+    }
+
+    else if (type == 'code') {
+        console.log('share code url')
+        // console.log('http://127.0.0.1:5500/?code=' + code.join("%20")) // the opposite of what I want
+    }
+}
+
