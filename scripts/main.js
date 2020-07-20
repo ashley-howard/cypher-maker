@@ -262,6 +262,7 @@ function share(type) {
     else if (type == 'code') {
         console.log('share code url')
         // console.log('http://127.0.0.1:5500/?code=' + code.join("%20")) // the opposite of what I want
+        console.log('http://127.0.0.1:5500/?code=' + getAllUrlParams().code.replace(/\s/g, '%20'))
     }
 }
 
