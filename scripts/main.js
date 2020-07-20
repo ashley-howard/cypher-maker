@@ -1,5 +1,6 @@
 var timeSensitive = false;
 var inputs = document.getElementById('inputs')
+var code = localStorage.getItem('code') ? JSON.parse(localStorage.getItem('code')) : [];
 
 // function coder(input) {
 //     input 
@@ -15,46 +16,28 @@ if (window.location.href.indexOf('5fdsse35tg') > 0) {
 }
 
 for (var i = 0; i < 36; i++) {
-    var letter = String.fromCharCode(97 + i);
+    // var letter = String.fromCharCode(97 + i);      
 
-    if (i < 26) {
-        var label = document.createElement("label")
-        label.innerHTML = letter;
+    var label = document.createElement("label")
+    label.innerHTML = i;
 
-        var input = document.createElement("input");
-        input.setAttribute("type", "text");
-        input.setAttribute("id", letter);
+    var input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("id", i);
 
-        inputs.appendChild(label);
-        inputs.appendChild(input);
-        inputs.appendChild(document.createElement("br"));
-    }
-    else {
-        var label = document.createElement("label")
-        label.innerHTML = i - 26;
-
-        var input = document.createElement("input");
-        input.setAttribute("type", "text");
-        input.setAttribute("id", i - 26);
-
-        inputs.appendChild(label);
-        inputs.appendChild(input);
-        inputs.appendChild(document.createElement("br"));
-    }
+    inputs.appendChild(label);
+    inputs.appendChild(input);
+    inputs.appendChild(document.createElement("br"));
 }
 
 function submit() {
 
-    var code = []
+    // var code = []
 
-    // push the user's custom "code" with the input value (26 values)
-    // include numbers 0-9  (10 values) = 36 altogether or 35 because 0 counts as 1?
     for (var i = 0; i < 36; i++) {
-        // var letters = String.fromCharCode(97 + i);
-        // letter[letters] = letters;
-        code.push(document.getElementById(String.fromCharCode(97 + i)).value); // won't work until you have all 26 letters written out in html
-
+        code.push(document.getElementById([i]).value);
     }
+
     console.log(code)
-    // console.log(a)
+    localStorage.setItem('code', JSON.stringify(code));
 }
