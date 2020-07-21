@@ -126,12 +126,16 @@ function encrypt() {
         if (letterPos == -65) {
             encryptArr.push(code[36])
         }
+        // numbers from -49 to -40
+        else if (letterPos >= -49 && letterPos <= -40) {
+            encryptArr.push(code[letterPos+75])
+        }
         else {
             encryptArr.push(code[letterPos])
         }
 
-        console.log(letterPos)
-        console.log(code[letterPos])
+        // console.log(letterPos)
+        // console.log(code[letterPos])
         decryptInput.value = encryptArr.join(" ")
     }
     // console.log(encryptArr)
@@ -162,7 +166,9 @@ function decrypt() {
 
         if (code.indexOf(decryptArr[0][i]) == 36) {
             decryptedArr.push(" ")
-
+        }
+        else if (code.indexOf(decryptArr[0][i]) >= 26 && code.indexOf(decryptArr[0][i]) <= 35){
+            decryptedArr.push(String.fromCharCode(22 + code.indexOf(decryptArr[0][i])))
         }
         else {
             decryptedArr.push(String.fromCharCode(97 + code.indexOf(decryptArr[0][i])))
