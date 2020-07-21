@@ -55,32 +55,32 @@ if (window.location.href.indexOf('hey') > 0) {
     console.log(window.location.href)
 }
 
-for (var i = 0; i < 37; i++) { // now includes a space
-    var letter = String.fromCharCode(97 + i);
+// for (var i = 0; i < 37; i++) { // now includes a space
+//     var letter = String.fromCharCode(97 + i);
 
-    var label = document.createElement("label")
+//     var label = document.createElement("label")
 
-    // letters a-z
-    if (i < 26) {
-        label.innerHTML = letter;
-    }
-    // numbers 0-9
-    else if (i > 25 && i < 36) {
-        label.innerHTML = i - 26;
-    }
-    // space
-    else {
-        label.innerHTML = 'Space';
-    }
+//     // letters a-z
+//     if (i < 26) {
+//         label.innerHTML = letter;
+//     }
+//     // numbers 0-9
+//     else if (i > 25 && i < 36) {
+//         label.innerHTML = i - 26;
+//     }
+//     // space
+//     else {
+//         label.innerHTML = 'Space';
+//     }
 
-    var input = document.createElement("input");
-    input.setAttribute("type", "text");
-    input.setAttribute("id", 'char-' + i);
+//     var input = document.createElement("input");
+//     input.setAttribute("type", "text");
+//     input.setAttribute("id", 'char-' + i);
 
-    inputs.appendChild(label);
-    inputs.appendChild(input);
-    inputs.appendChild(document.createElement("br"));
-}
+//     inputs.appendChild(label);
+//     inputs.appendChild(input);
+//     inputs.appendChild(document.createElement("br"));
+// }
 
 function save() {
     if (localStorage.getItem('code')) {
@@ -128,7 +128,7 @@ function encrypt() {
         }
         // numbers from -49 to -40
         else if (letterPos >= -49 && letterPos <= -40) {
-            encryptArr.push(code[letterPos+75])
+            encryptArr.push(code[letterPos + 75])
         }
         else {
             encryptArr.push(code[letterPos])
@@ -167,7 +167,7 @@ function decrypt() {
         if (code.indexOf(decryptArr[0][i]) == 36) {
             decryptedArr.push(" ")
         }
-        else if (code.indexOf(decryptArr[0][i]) >= 26 && code.indexOf(decryptArr[0][i]) <= 35){
+        else if (code.indexOf(decryptArr[0][i]) >= 26 && code.indexOf(decryptArr[0][i]) <= 35) {
             decryptedArr.push(String.fromCharCode(22 + code.indexOf(decryptArr[0][i])))
         }
         else {
@@ -267,27 +267,73 @@ if (getAllUrlParams().msg) {
         encryptInput.value = 'in the end nothing really matters';
         decryptInput.value = getAllUrlParams().msg;
     }
+
+    window.history.replaceState({}, document.title, "/");
 }
 
 if (getAllUrlParams().code) {
     console.log("there's a code in the URL") // ?code=
     code = getAllUrlParams().code.replace(/%20/g, " ").split(" ")
     localStorage.setItem('code', JSON.stringify(code));
+
+    //fill in inputs using for
+    for (var i = 0; i < code.length; i++) {
+        document.getElementById(`char-${i}`).value = code[i]
+    }
+
+    window.history.replaceState({}, document.title, "/");
 }
 
 
 // create URL-friendly link and copies to clipboard
 function share(type) {
+    var link;
+
     if (type == 'msg') {
         // this is the opposite
         // 'olive%20grey39%20orange1'.replace(/%20/g, " ")
-        console.log('http://127.0.0.1:5500/?msg=' + decryptInput.value.replace(/\s/g, '%20'))
+        // console.log('http://127.0.0.1:5500/?msg=' + decryptInput.value.replace(/\s/g, '%20'))
+
+        link = 'https://' + window.location.hostname + '/?msg=' + decryptInput.value.replace(/\s/g, '%20');
+
+
+
+        // /* Select the text field */
+        // decryptInput.select();
+        // decryptInput.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        // /* Copy the text inside the text field */
+        // document.execCommand("copy");
+
     }
 
     else if (type == 'code') {
-        console.log('share code url')
-        // console.log('http://127.0.0.1:5500/?code=' + code.join("%20")) // the opposite of what I want
-        console.log('http://127.0.0.1:5500/?code=' + getAllUrlParams().code.replace(/\s/g, '%20'))
+        // console.log('share code url')
+        // console.log('http://127.0.0.1:5500/?code=' + code.join("%20"))
+
+        link = 'https://' + window.location.hostname + '/?code=' + code.join("%20");
+
+        // console.log('http://127.0.0.1:5500/?code=' + getAllUrlParams().code.replace(/\s/g, '%20'))
     }
+
+    copyStringToClipboard(link);
+}
+
+
+function copyStringToClipboard(str) {
+    // Create new element
+    var el = document.createElement('textarea');
+    // Set value (string to be copied)
+    el.value = str;
+    // Set non-editable to avoid focus and move outside of view
+    el.setAttribute('readonly', '');
+    el.style = { position: 'absolute', left: '-9999px' };
+    document.body.appendChild(el);
+    // Select text inside element
+    el.select();
+    // Copy text to clipboard
+    document.execCommand('copy');
+    // Remove temporary element
+    document.body.removeChild(el);
 }
 
