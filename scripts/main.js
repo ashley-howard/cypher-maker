@@ -30,7 +30,7 @@ function category(type) {
 
             shuffleArray(data)
 
-            for (i = 0; i < 36; i++) {
+            for (i = 0; i < 37; i++) {
                 var charPos = document.getElementById('char-' + i);
 
                 if (type == 'colours') {
@@ -55,17 +55,23 @@ if (window.location.href.indexOf('hey') > 0) {
     console.log(window.location.href)
 }
 
-for (var i = 0; i < 36; i++) {
+for (var i = 0; i < 37; i++) { // now includes a space
     var letter = String.fromCharCode(97 + i);
 
     var label = document.createElement("label")
+
+    // letters a-z
     if (i < 26) {
         label.innerHTML = letter;
     }
-    else {
+    // numbers 0-9
+    else if (i > 25 && i < 36) {
         label.innerHTML = i - 26;
     }
-
+    // space
+    else {
+        label.innerHTML = 'Space';
+    }
 
     var input = document.createElement("input");
     input.setAttribute("type", "text");
@@ -76,12 +82,15 @@ for (var i = 0; i < 36; i++) {
     inputs.appendChild(document.createElement("br"));
 }
 
-function submit() {
+function save() {
     if (localStorage.getItem('code')) {
         code = [];
     }
-    for (var i = 0; i < 36; i++) {
-        code.push(document.getElementById('char-' + i).value);
+    for (var i = 0; i < 37; i++) {
+        // replace all spaces with hyphen     
+        code.push(document.getElementById('char-' + i).value.replace(/ +/g, '-'));
+
+
     }
 
     console.log(code)
@@ -95,7 +104,7 @@ function reset() {
 // if code is written in local storage, retrieve it and fill in inputs.
 
 if (localStorage.getItem('code')) {
-    for (var i = 0; i < 36; i++) {
+    for (var i = 0; i < 37; i++) {
         document.getElementById('char-' + i).value = JSON.parse(localStorage.getItem('code'))[i];
     }
 }
@@ -110,10 +119,16 @@ function encrypt() {
         // or use .replace() 
         // 'word'.charCodeAt() - 97
         // var letter = String.fromCharCode(97 + i);
-        // -65 is a space
+
         var letterPos = encryptInput.value[i].charCodeAt() - 97;
 
-        encryptArr.push(code[letterPos])
+        // -65 is a space
+        if (letterPos == -65) {
+            encryptArr.push(code[36])
+        }
+        else {
+            encryptArr.push(code[letterPos])
+        }
 
         console.log(letterPos)
         console.log(code[letterPos])
@@ -141,14 +156,18 @@ function decrypt() {
 
     for (var i = 0; i < decryptArr[0].length; i++) {
 
-        var magic1 = code.indexOf(decryptArr[0][i])
+        // var magic1 = code.indexOf(decryptArr[0][i])
 
-        var magic2 = String.fromCharCode(97 + code.indexOf(decryptArr[0][magic1]))
+        // var magic2 = String.fromCharCode(97 + code.indexOf(decryptArr[0][magic1]))
 
-        decryptedArr.push(String.fromCharCode(97 + code.indexOf(decryptArr[0][i])))
+        if (code.indexOf(decryptArr[0][i]) == 36) {
+            decryptedArr.push(" ")
 
+        }
+        else {
+            decryptedArr.push(String.fromCharCode(97 + code.indexOf(decryptArr[0][i])))
 
-
+        }
     }
     // console.log(magic1)
     // console.log(decryptedArr)
