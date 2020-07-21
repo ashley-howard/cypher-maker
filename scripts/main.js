@@ -257,7 +257,7 @@ if (getAllUrlParams().msg) {
     if (localStorage.getItem('code')) {
         // dont bother putting it in the decrypt input, just convert subito
         // console.log("there's a msg in the URL")
-        // decryptInput.value = getAllUrlParams().msg.replace(/%20/g, " ");
+        decryptInput.value = getAllUrlParams().msg.replace(/%20/g, " ");
 
         decrypt()
     }
@@ -268,6 +268,7 @@ if (getAllUrlParams().msg) {
         decryptInput.value = getAllUrlParams().msg;
     }
 
+    // !!!!!!!!!!!!!!!!!activate this when it's on its own domain
     // window.history.replaceState({}, document.title, "/");
 }
 
