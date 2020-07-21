@@ -281,7 +281,8 @@ if (getAllUrlParams().code) {
         document.getElementById(`char-${i}`).value = code[i]
     }
 
-    window.history.replaceState({}, document.title, "/");
+    // !!!!!!!!!!!!!!!!!activate this when it's on its own domain
+    // window.history.replaceState({}, document.title, "/");
 }
 
 
