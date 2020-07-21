@@ -18,7 +18,7 @@ function category(type) {
     var url;
 
     if (type == 'animals') {
-        url = 'animalList.json'
+        url = 'https://ashley.how/cypher-maker/scripts/animalList.json'
     }
     else if (type == 'colours') {
         url = 'https://jonasjacek.github.io/colors/data.json'
