@@ -294,7 +294,7 @@ function share(type) {
         // 'olive%20grey39%20orange1'.replace(/%20/g, " ")
         // console.log('http://127.0.0.1:5500/?msg=' + decryptInput.value.replace(/\s/g, '%20'))
 
-        link = 'https://' + window.location.hostname + '/?msg=' + decryptInput.value.replace(/\s/g, '%20');
+        link = 'https://ashley.how/cypher-maker/' + '/?msg=' + decryptInput.value.replace(/\s/g, '%20');
 
 
 
@@ -311,7 +311,7 @@ function share(type) {
         // console.log('share code url')
         // console.log('http://127.0.0.1:5500/?code=' + code.join("%20"))
 
-        link = 'https://' + window.location.hostname + '/?code=' + code.join("%20");
+        link = 'https://ashley.how/cypher-maker/' + '/?code=' + code.join("%20");
 
         // console.log('http://127.0.0.1:5500/?code=' + getAllUrlParams().code.replace(/\s/g, '%20'))
     }
