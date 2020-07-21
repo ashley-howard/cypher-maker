@@ -18,7 +18,7 @@ function category(type) {
     var url;
 
     if (type == 'animals') {
-        url = '/scripts/animalList.json'
+        url = 'scripts/animalList.json'
     }
     else if (type == 'colours') {
         url = 'https://jonasjacek.github.io/colors/data.json'
@@ -256,15 +256,15 @@ if (getAllUrlParams().msg) {
 
     if (localStorage.getItem('code')) {
         // dont bother putting it in the decrypt input, just convert subito
-        console.log("there's a msg in the URL")
-        decryptInput.value = getAllUrlParams().msg.replace(/%20/g, " ");
+        // console.log("there's a msg in the URL")
+        // decryptInput.value = getAllUrlParams().msg.replace(/%20/g, " ");
 
         decrypt()
     }
 
     // instead match the same amount of words as the url 
     else {
-        encryptInput.value = 'in the end nothing really matters';
+        encryptInput.value = "Don't be nosy.";
         decryptInput.value = getAllUrlParams().msg;
     }
 
