@@ -268,7 +268,7 @@ if (getAllUrlParams().msg) {
         decryptInput.value = getAllUrlParams().msg;
     }
 
-    window.history.replaceState({}, document.title, "/");
+    // window.history.replaceState({}, document.title, "/");
 }
 
 if (getAllUrlParams().code) {
